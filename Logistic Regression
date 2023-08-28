@@ -1,0 +1,8 @@
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+LR=LogisticRegression()
+LR.fit(x_train,y_train)
+
+pred_cv=LR.predict(x_cv)
+accuracy_score(y_cv,pred_cv)

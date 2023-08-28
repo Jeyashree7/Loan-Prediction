@@ -1,0 +1,17 @@
+#loan id don't have an effect on the outcome
+train=train.drop('Loan_ID',axis=1)
+test=test.drop('Loan_ID',axis=1)
+
+# Save target variable in separate dataset
+x = train.drop('Loan_Status',1)
+y = train.Loan_Status 
+
+#As logistic regression takes only the numerical values as input, we have to change every categorical variable to continious 
+x=pd.get_dummies(x)
+train=pd.get_dummies(train)
+test=pd.get_dummies(test)
+
+#we will use train_test_split function of sklearn to validate our predictions
+from sklearn.model_selection import train_test_split
+
+x_train,x_cv,y_train,y_cv = train_test_split(x,y, test_size=0.3, random_state=123)

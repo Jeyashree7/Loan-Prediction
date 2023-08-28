@@ -1,0 +1,21 @@
+# Total_Income feature
+train['Total_Income']=train['ApplicantIncome']+train['CoapplicantIncome']
+test['Total_Income']=test['ApplicantIncome']+test['CoapplicantIncome']
+
+sns.distplot(train['Total_Income']);
+
+train['Total_Income_log'] = np.log(train['Total_Income'])
+sns.distplot(train['Total_Income_log']);
+test['Total_Income_log'] = np.log(test['Total_Income'])
+
+# EMI feature
+train['EMI']=(train['LoanAmount']/train['Loan_Amount_Term'])*1000
+test['EMI']=(test['LoanAmount']/test['Loan_Amount_Term'])*1000
+
+sns.distplot(train['EMI']);
+
+# Balance Income feature
+train['Balance Income']=train['Total_Income']-(train['EMI']) 
+test['Balance Income']=test['Total_Income']-(test['EMI'])
+sns.distplot(train['Balance Income']);
+

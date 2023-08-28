@@ -1,0 +1,7 @@
+from sklearn.ensemble import RandomForestClassifier
+
+RF = RandomForestClassifier()
+RF.fit(x_train,y_train)
+
+pred_cv=RF.predict(x_cv)
+accuracy_score(y_cv,pred_cv)

@@ -18,3 +18,5 @@ test_original=test.copy()
 train.columns, test.columns
 
 train.dtypes
+
+train.shape, test.shape

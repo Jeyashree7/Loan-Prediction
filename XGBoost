@@ -1,0 +1,14 @@
+from xgboost import XGBClassifier
+
+XG= XGBClassifier()
+XG.fit(x_train,y_train)
+
+pred_cv=XG.predict(x_cv)
+accuracy_score(y_cv,pred_cv)
+
+### Hence Logistic Regression has the highest accuracy among the four models.
+### Therefore predicting the target variable of test set using Logistic Regression
+
+pred_test = LR.predict(test)
+test.head(1)
+df.head()

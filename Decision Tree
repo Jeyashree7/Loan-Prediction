@@ -1,0 +1,7 @@
+from sklearn import tree
+
+DT = tree.DecisionTreeClassifier()
+DT.fit(x_train, y_train)
+
+pred_cv = DT.predict(x_cv)
+accuracy_score(y_cv,pred_cv)

@@ -1,0 +1,97 @@
+### we will compare each variable against the target variable i.e loan status.
+print(pd.crosstab(train['Gender'],train['Loan_Status']))
+
+Gender=pd.crosstab(train['Gender'],train['Loan_Status'])
+Gender.div(Gender.sum(1).astype(float), axis=0).plot(kind="bar", stacked=False, figsize=(4,4))
+plt.xlabel('Gender')
+p = plt.ylabel('Percentage')
+
+print(pd.crosstab(train['Married'],train['Loan_Status']))
+
+Married=pd.crosstab(train['Married'],train['Loan_Status'])
+Married.div(Married.sum(1).astype(float), axis=0).plot(kind="bar", figsize=(4,4))
+plt.xlabel('Married')
+p = plt.ylabel('Percentage')
+
+
+print(pd.crosstab(train['Dependents'],train['Loan_Status']))
+
+Dependents=pd.crosstab(train['Dependents'],train['Loan_Status'])
+Dependents.div(Dependents.sum(1).astype(float), axis=0).plot(kind="bar")
+plt.xlabel('Dependents')
+p = plt.ylabel('Percentage')
+
+print(pd.crosstab(train['Education'],train['Loan_Status']))
+
+Education=pd.crosstab(train['Education'],train['Loan_Status'])
+Education.div(Education.sum(1).astype(float), axis=0).plot(kind="bar", figsize=(4,4))
+plt.xlabel('Education')
+p = plt.ylabel('Percentage')
+
+print(pd.crosstab(train['Self_Employed'],train['Loan_Status']))
+
+Self_Employed=pd.crosstab(train['Self_Employed'],train['Loan_Status'])
+Self_Employed.div(Self_Employed.sum(1).astype(float), axis=0).plot(kind="bar", figsize=(4,4))
+plt.xlabel('Self_Employed')
+p = plt.ylabel('Percentage')
+
+print(pd.crosstab(train['Credit_History'],train['Loan_Status']))
+
+Credit_History=pd.crosstab(train['Credit_History'],train['Loan_Status'])
+Credit_History.div(Credit_History.sum(1).astype(float), axis=0).plot(kind="bar", figsize=(4,4))
+plt.xlabel('Credit_History')
+p = plt.ylabel('Percentage')
+
+print(pd.crosstab(train['Property_Area'],train['Loan_Status']))
+
+Property_Area=pd.crosstab(train['Property_Area'],train['Loan_Status'])
+Property_Area.div(Property_Area.sum(1).astype(float), axis=0).plot(kind="bar")
+plt.xlabel('Property_Area')
+P = plt.ylabel('Percentage')
+
+train.groupby('Loan_Status')['ApplicantIncome'].mean().plot.bar()
+
+# Making bins for Applicant income variable
+bins=[0,2500,4000,6000,81000]
+group=['Low','Average','High', 'Very high']
+train['Income_bin']=pd.cut(df['ApplicantIncome'],bins,labels=group)
+
+Income_bin=pd.crosstab(train['Income_bin'],train['Loan_Status'])
+Income_bin.div(Income_bin.sum(1).astype(float), axis=0).plot(kind="bar")
+plt.xlabel('Property_Area')
+P = plt.ylabel('Percentage')
+
+# Making bins for Coapplicant income variable
+bins=[0,1000,3000,42000]
+group=['Low','Average','High']
+train['Coapplicant_Income_bin']=pd.cut(df['CoapplicantIncome'],bins,labels=group)
+
+Coapplicant_Income_bin=pd.crosstab(train['Coapplicant_Income_bin'],train['Loan_Status'])
+Coapplicant_Income_bin.div(Coapplicant_Income_bin.sum(1).astype(float), axis=0).plot(kind="bar")
+plt.xlabel('Property_Area')
+P = plt.ylabel('Percentage')
+
+# Making bins for LoanAmount variable
+bins=[0,100,200,700]
+group=['Low','Average','High']
+train['LoanAmount_bin']=pd.cut(df['LoanAmount'],bins,labels=group)
+
+LoanAmount_bin=pd.crosstab(train['LoanAmount_bin'],train['Loan_Status'])
+LoanAmount_bin.div(LoanAmount_bin.sum(1).astype(float), axis=0).plot(kind="bar")
+plt.xlabel('Property_Area')
+P = plt.ylabel('Percentage')
+
+# Drop the new variable of bins
+train=train.drop(['Income_bin', 'Coapplicant_Income_bin', 'LoanAmount_bin'], axis=1)
+
+# replacing 3+ in Dependents variable with 3
+# replacing Y and N in Loan_Status variable with 1 and 0 respectively
+train['Dependents'].replace(('0', '1', '2', '3+'), (0, 1, 2, 3),inplace=True)
+test['Dependents'].replace(('0', '1', '2', '3+'), (0, 1, 2, 3),inplace=True)
+train['Loan_Status'].replace('N', 0,inplace=True)
+train['Loan_Status'].replace('Y', 1,inplace=True)
+
+# Print correlation matrix (heat map)
+matrix = train.corr()
+f, ax = plt.subplots(figsize=(9,6))
+sns.heatmap(matrix, vmax=.8, square=True, cmap="BuPu");
